@@ -36,10 +36,11 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Player.cs" />
      <Compile Include="Assets\DetectionRange.cs" />
      <Compile Include="Assets\SpearWarrior.cs" />
      <Compile Include="Assets\Weapon.cs" />
-     <Compile Include="Assets\Player.cs" />
+     <Compile Include="Assets\Shield.cs" />
      <None Include="Assets\codeandweb.com\Readme.txt" />
     <Reference Include="UnityEngine">
         <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.0f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

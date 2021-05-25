@@ -8,12 +8,13 @@ public enum SpearWarriorStatus{
     ShieldRaised = 2
 }
 
-public class SpearWarrior : MonoBehaviour
+public class SpearWarrior : MonoBehaviour, CanTakeDamage
 {
     #region Variables
     [SerializeField] private float walkSpeed = 1f;
     [SerializeField] private float dashSpeed = 10f;
     [SerializeField] private SpearWarriorStatus currentStatus;
+    [SerializeField] private int healthPoint;
     private Animator animator;
 
     private bool canMove = true;
@@ -76,6 +77,11 @@ public class SpearWarrior : MonoBehaviour
 
     #region FightingBehaviour
     private void Fighting(){
+        // Shield bump anim on space button to test hit
+        // Require the Shield Raised state
+        if (Input.GetKeyDown(KeyCode.Space)){
+            ShieldHit();
+        }
         // Turn the character to face the player
         if (canAttack == true && transform.position.x+1 < playerTransform.position.x && transform.localScale.x == -1){
             Turn();
@@ -99,7 +105,7 @@ public class SpearWarrior : MonoBehaviour
         }
     }
 
-            // We attack and then put the shield up right after for 1 to 2.5 sec
+    // We attack and then put the shield up right after for 1 to 2.5 sec
     IEnumerator AttackAndShield(){
         canAttack = false;
         animator.SetTrigger("DashAttack");
@@ -113,6 +119,10 @@ public class SpearWarrior : MonoBehaviour
 
     public void SetCanAttack(){
         canAttack = true;
+    }
+
+    public void TakeHit(int value){
+        healthPoint -= value;
     }
 
     private void SetPlayerInRange(GameObject player){
@@ -186,5 +196,9 @@ public class SpearWarrior : MonoBehaviour
 
     public void Dash(){
             GetComponent<Rigidbody2D>().velocity = new Vector2(walkSpeed * dashSpeed,0);
+    }
+
+    public void ShieldHit(){
+        animator.SetTrigger("ShieldBump");
     }
 }
